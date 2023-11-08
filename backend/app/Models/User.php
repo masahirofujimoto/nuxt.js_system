@@ -42,4 +42,34 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+        // postsリレーション
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
+    }
+
+    // reviewsリレーション
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
+    }
+
+    // followersリレーション（多対多）
+    public function followers()
+    {
+        return $this->belongsToMany(User::class, 'followers', 'followed_id', 'follower_id');
+    }
+
+    // followingリレーション（多対多）
+    public function following()
+    {
+        return $this->belongsToMany(User::class, 'followers', 'follower_id', 'followed_id');
+    }
+
+    // notificationsリレーション
+    public function notifications()
+    {
+        return $this->hasMany(Notification::class);
+    }
 }
